@@ -1,5 +1,6 @@
 package main;
-
+import java.util.*;
+import java.lang.StringBuilder;
 
 public class BalancedBrackets {
     /**
@@ -22,14 +23,25 @@ public class BalancedBrackets {
      * @return true if balanced, false otherwise
      */
     public static boolean hasBalancedBrackets(String str) {
-        int brackets = 0;
+        ArrayList<Character> bracketArrLst = new ArrayList<>();
         for (char ch : str.toCharArray()) {
-            if (ch == '[') {
-                brackets++;
-            } else if (ch == ']') {
-                brackets--;
+            if (ch == '[' || ch == ']') {
+                bracketArrLst.add(ch);
             }
         }
-        return brackets == 0;
+        StringBuilder builder = new StringBuilder(bracketArrLst.size());
+        for (Character ch: bracketArrLst) {
+            builder.append(ch);
+        }
+        String bracketString = builder.toString();
+        while (bracketString.contains("[]")) {
+            bracketString = bracketString.replace("[]", "");
+        }
+
+        if (bracketString.length() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
